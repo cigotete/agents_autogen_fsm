@@ -20,20 +20,14 @@ llm_config_gpt3 = {
 # List of agents
 agents = [ConversableAgent(name=f"Agent{i}", llm_config=False) for i in range(5)]
 
-allowed_speaker_transitions_dict = {}
+# Dictionary defining how are relations between agents.
+allowed_speaker_transitions_dict = {
+    agents[0]: [agents[1], agents[2], agents[3], agents[4]],
+    agents[1]: [agents[0]],
+    agents[2]: [agents[0]],
+    agents[3]: [agents[0]],
+    agents[4]: [agents[0]],
+}
 
-# Filling dictionary with each agent as a key
-for agent in agents:
-    transitions = []
-
-    # Add each agent to the list of possible destinations
-    for other_agent in agents:
-        transitions.append(other_agent)
-
-    # Assign the list of transitions as the value in the dictionary for the current 'agent' key
-    allowed_speaker_transitions_dict[agent] = transitions
-
-# Result: Dictionary where each agent can transfer to any other agent
-
-# Printing agents relations.
+# Visualizing relation.
 visualize_speaker_transitions_dict(allowed_speaker_transitions_dict, agents)
